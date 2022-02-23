@@ -1,5 +1,6 @@
 # icon_getinfo
-icon network node get information
+
+**icon_getinfo** is a simple, icon blockchain node get information
 
 # Usage
 ```console
