@@ -1,18 +1,29 @@
 # icon_getinfo
-
 **icon_getinfo** is a simple pkg, 
-ICON blockchain Network node get information
++ ICON blockchain Network node get information
+
+# How to install 
+## Python
++ python >= 3.7
++ pip install -r requirement.txt
+
+## pyenv install
++ Link: [pyenv_install][pyenv_install]
+
+[pyenv_install]: https://louky0714.tistory.com/156 "Go Install PAGE"
 
 # Usage
-
-```console
 $ ./icon_getinfo -h
-usage: icon_getinfo.py [-h] [-u URL] [--duration_time] [--no-trunc] [--showlog] [--filter FILTER [FILTER ...]]    {chain,chain_detail,chain_inspect,system,all,all_chain,all_chain_inspect,all_chain_detail,all_system,all_node}
+```console
+usage: icon_getinfo.py [-h] [-u URL] [--duration_time] [--no-trunc] [--showlog] [--filter FILTER [FILTER ...]]   
+                       {chain,chain_detail,chain_inspect,system,all,   
+                        all_chain,all_chain_inspect,all_chain_detail,all_system,all_node}
 
 Get icon node information
 
 positional arguments:
-  {chain,chain_detail,chain_inspect,system,all,all_chain,all_chain_inspect,all_chain_detail,all_system,all_node}
+  {chain,chain_detail,chain_inspect,system,all,all_chain,   
+   all_chain_inspect,all_chain_detail,all_system,all_node}
                         Icon Network get information mode
 
 optional arguments:
@@ -31,7 +42,7 @@ optional arguments:
 $ ./icon_getinfo [-u node_URL or node_IP] chain
 ```
 
-# Get Single node chain deatil(inspect) info
+# Get Single node chain detail(or inspect) info
 
 ```console
 $ ./icon_getinfo [-u node_URL or node_IP] chain_detail(or chain_inspect)
@@ -50,7 +61,7 @@ $ ./icon_getinfo [-u node_URL or node_IP] all
 ```
 
 
-# Get All network node chain or chain_detail(inspect) info
+# Get All network node chain or chain_detail(or inspect) info
 ```console
 $ ./icon_getinfo [-u node_URL or node_IP] [all_chain|all_chain_detail(or all_chain_inspect)]
 ```
@@ -76,6 +87,4 @@ $ ./icon_getinfo [-u node_URL or node_IP] all_node
   --filter FILTER [FILTER ...], -f FILTER [FILTER ...]
                         Out put print filter
 ```
-
-
 
