@@ -2,7 +2,7 @@
 **icon_getinfo** is a simple pkg, 
 + ICON blockchain Network node get information
 
-# How to install 
+# How to Pre-install 
 ## Python
 + python >= 3.7
 + pip install -r requirement.txt
@@ -11,6 +11,7 @@
 + Link: [pyenv_install][pyenv_install]
 
 [pyenv_install]: https://louky0714.tistory.com/156 "Go Install PAGE"
+
 
 # Usage
 $ ./icon_getinfo -h
