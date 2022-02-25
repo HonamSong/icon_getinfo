@@ -12,6 +12,9 @@
 
 [pyenv_install]: https://louky0714.tistory.com/156 "Go Install PAGE"
 
+# How to install
++ pip3 install icon-getinfo
+
 
 # Usage
 $ ./icon_getinfo -h
