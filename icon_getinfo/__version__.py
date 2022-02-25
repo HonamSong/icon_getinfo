@@ -1,8 +1,8 @@
 ####
-__title__ = 'icon_getinfo'
+__title__ = 'icon-getinfo'
 __description__ = 'Icon Blockchain Network node get information.'
 __url__ = 'https://github.com/HonamSong/icon_getinfo'
-__version__ = '0.0.1'
+__version__ = '0.0.21'
 __author__ = 'Honam Song'
 __author_email__ = 'hnsong@iconloop.com'
 __license__ = 'MIT'

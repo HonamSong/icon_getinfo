@@ -1,2 +1,6 @@
 ./icon_getinfo/__pycache__
 ./icon_getinfo/__pycache__/*
+
+./icon_getinfo.egg*
+./dist
+./build

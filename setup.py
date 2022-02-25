@@ -6,10 +6,12 @@ here = os.path.abspath(os.path.dirname(__file__))
 
 about = {}
 
-print(here)
-print(os.path.join(here, 'icon_getinfo', '__version__.py'))
+pkg_path = 'icon_getinfo'
 
-with open(os.path.join(here, 'icon_getinfo', '__version__.py'), 'r', 'utf-8') as f:
+print(here)
+print(os.path.join(here, pkg_path, '__version__.py'))
+
+with open(os.path.join(here, pkg_path, '__version__.py'), 'r', 'utf-8') as f:
     exec(f.read(), about)
 
 with open('README.md', 'r', 'utf-8') as f:
@@ -35,7 +37,7 @@ setuptools.setup(
     ],
     entry_points=dict(
         console_scripts=[
-            'icon_getinfo=icon_getinfo.icon_getinfo:main'
+            'icon_getinfo=icon_getinfo.icon_getinfo_cli:main'
         ],
     ),
 )
