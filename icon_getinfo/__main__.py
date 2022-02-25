@@ -26,29 +26,26 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import os
 import re
 import sys
 import json
 import time
 import urllib3
-<<<<<<< HEAD:icon_getinfo/icon_getinfo.py
-=======
 import inspect
 import requests
->>>>>>> v0.0.21:icon_getinfo/__main__.py
 import threading
 import multiprocessing
 from queue import Queue
+from datetime import datetime
+from termcolor import cprint
+from prettytable import PrettyTable
 from urllib.parse import urlparse
-<<<<<<< HEAD:icon_getinfo/icon_getinfo.py
-from base import *
-=======
 
 try:
     from .__version__ import __version__
 except:
     from __version__ import __version__
->>>>>>> v0.0.21:icon_getinfo/__main__.py
 
 class IconNodeGetInfo:
     def __init__(self, url='http://localhost', port='9000', showlog=False):
@@ -333,15 +330,6 @@ class IconNodeGetInfo:
 
         return field_name, node_result
 
-<<<<<<< HEAD:icon_getinfo/icon_getinfo.py
-def print_banner():
-    banner = '''starting to IconNetwork Node Information !!
-     _   _           _        ___        __
-    | \ | | ___   __| | ___  |_ _|_ __  / _| ___
-    |  \| |/ _ \ / _` |/ _ \  | || '_ \| |_ / _ \\
-    | |\  | (_) | (_| |  __/  | || | | |  _| (_) |
-    |_| \_|\___/ \__,_|\___| |___|_| |_|_|  \___/
-=======
 
 def todaydate(date_type=None):
     if date_type is None:
@@ -379,7 +367,6 @@ def base_path():
     module = inspect.getmodule(frame[0])
     filename = module.__file__
     return os.path.dirname(filename)
->>>>>>> v0.0.21:icon_getinfo/__main__.py
 
 def check_dir(dir_path, create_if_missing=False):
     if os.path.isdir(dir_path):
@@ -417,36 +404,11 @@ def single_list_check(data):
     else:
         return False
 
-<<<<<<< HEAD:icon_getinfo/icon_getinfo.py
-def parse_args(**kwargs):
-    import argparse
-    parser = argparse.ArgumentParser(description="Get icon node information")
-
-    parser.add_argument("-m", "--mode", default='chain', help=f'Get mode type',
-                        choices=['chain', 'chain_detail', 'chain_inspect', 'system', 'all', 'all_chain',
-                                 'all_chain_inspect', 'all_chain_detail', 'all_system', 'all_node'])
-    parser.add_argument("-u", "--url", default="http://localhost")
-    parser.add_argument("--duration_time", action='store_true', help='Show Duration of time')
-    parser.add_argument("--notrunc", action='store_true', help="Don't truncate output")
-    parser.add_argument("--showlog", action='store_true', help='show running log')
-    parser.add_argument("--filter", "-f", nargs='+', help='table filter', default=None, dest='filter')
-
-    return parser.parse_args()
-
-
-def main_run(get_node, mode, notrunc):
-    print_title = None
-    field_name = None
-    field_data = None
-    noti_str1 = 'Icon Network Node'
-    noti_str2 = 'Icon Network All Node'
-=======
 def pretty_table(filed_name, data, filter_head, align="l", showlog=False):
     # https://pypi.org/project/prettytable/
     #prettytable = PrettyTable(padding_width=1, header_style="title")
     prettytable = PrettyTable(padding_width=1)
     is_not_field = False
->>>>>>> v0.0.21:icon_getinfo/__main__.py
 
     if single_list_check(data):
         prettytable.field_names = filed_name
@@ -573,10 +535,6 @@ class Logging:
         if not color:
             color = self.log_color
 
-<<<<<<< HEAD:icon_getinfo/icon_getinfo.py
-    cprint(print_title, 'green')
-    cprint(f'{pretty_table(field_name, field_data, args.filter)}', 'green')
-=======
         if level == 'error' or level == 'err' or level == 'ERROR' or level == 'ERR':
             color = Color.red
             level = 'ERROR'
@@ -588,7 +546,6 @@ class Logging:
             level = 'DEBUG'
         else:
             level = self.log_level
->>>>>>> v0.0.21:icon_getinfo/__main__.py
 
         print_msg = f'[{todaydate(date_type="ms")}] [{level.upper():5}] | line.{line_num} | {msg}'
 
@@ -601,4 +558,3 @@ class Logging:
             if is_print:
                 cprint(print_msg, color)
             self.log_write(print_msg,)
-

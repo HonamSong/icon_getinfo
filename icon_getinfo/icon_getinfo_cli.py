@@ -36,10 +36,6 @@ def parse_args(**kwargs):
     parser.add_argument('mode', default='chain', help=f'Icon Network get information mode',
                         choices=['chain', 'chain_detail', 'chain_inspect', 'system', 'all', 'all_chain',
                                  'all_chain_inspect', 'all_chain_detail', 'all_system', 'all_node'])
-
-    #parser.add_argument("-m", "--mode", default='chain', help=f'Get mode type',
-    #                    choices=['chain', 'chain_detail', 'chain_inspect', 'system', 'all', 'all_chain',
-    #                             'all_chain_inspect', 'all_chain_detail', 'all_system', 'all_node'])
     parser.add_argument("-u", "--url", default="http://localhost")
     parser.add_argument("-v", "--version", action='store_true', help='Show Version')
     parser.add_argument("--duration_time", action='store_true', help='Show Duration of time')
