@@ -16,7 +16,7 @@
 # Usage
 $ ./icon_getinfo -h
 ```console
-usage: icon_getinfo.py [-h] [-u URL] [--duration_time] [--no-trunc] [--showlog] [--filter FILTER [FILTER ...]]   
+usage: icon_getinfo [-h] [-u URL] [--duration_time] [--no-trunc] [--showlog] [--filter FILTER [FILTER ...]]   
                        {chain,chain_detail,chain_inspect,system,all,   
                         all_chain,all_chain_inspect,all_chain_detail,all_system,all_node}
 
