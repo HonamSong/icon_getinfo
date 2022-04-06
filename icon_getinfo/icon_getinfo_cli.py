@@ -6,8 +6,9 @@ try:
 except:
     from __version__ import __version__
 
+import time
 from icon_getinfo import *
-from icon_getinfo import IconNodeGetInfo as ig
+from icon_getinfo import IconNodeGetInfo as Ig
 
 
 def print_banner(args):
@@ -27,7 +28,6 @@ def print_banner(args):
     cprint(f'    + {"version":20} : {__version__}', 'green')
     cprint(f'    + {"Running Data":20} : {todaydate("ms")}', 'green')
     cprint(f'    + {"Input Check node ip":20} : {args.url}\n\n', 'green')
-
 
 
 def parse_args(**kwargs):
@@ -104,8 +104,7 @@ def main():
 
     print_banner(args)
 
-    get_node = ig(url=args.url, showlog=args.showlog)
-
+    get_node = Ig(url=args.url, showlog=args.showlog)
 
     if len(sys.argv) == 1:
         print(json.dumps(get_node.get_node(get_local=True, get_chain=True), indent=4))
@@ -128,4 +127,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

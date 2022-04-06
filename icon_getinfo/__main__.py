@@ -22,15 +22,11 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 import os
 import re
 import sys
 import json
-import time
+# import time
 import urllib3
 import inspect
 import requests
@@ -47,6 +43,7 @@ try:
 except:
     from __version__ import __version__
 
+
 class IconNodeGetInfo:
     def __init__(self, url='http://localhost', port='9000', showlog=False):
         self.url = url
@@ -60,6 +57,9 @@ class IconNodeGetInfo:
         self.system_url_path = "admin/system"
         self.data_q = Queue()
         self.m_field_name = None
+
+        if "localhost" in self.url:
+            self.url = get_public_ipaddr()
 
         if "http://" not in self.url:
             self.url = f'http://{self.url}'
@@ -262,6 +262,10 @@ class IconNodeGetInfo:
         seeds_ips = list(res_json_data.get('module').get('network').get('p2p').get('seeds').keys())
         nodes_ip = set(roots_ips + seeds_ips + [f'{urlparse(self.url).hostname}:7100'])
 
+        self.logging.log_print(f'++ roots_ips : {roots_ips}', 'magenta', is_print=self.showlog)
+        self.logging.log_print(f'++ seeds_ips : {seeds_ips}', 'magenta', is_print=self.showlog)
+        self.logging.log_print(f'++ ips : {urlparse(self.url).hostname}', 'magenta', is_print=self.showlog)
+
         self.logging.log_print(f'++ get_all_node_ip : {nodes_ip}', 'magenta', is_print=self.showlog)
 
         return nodes_ip
@@ -271,7 +275,7 @@ class IconNodeGetInfo:
         node_info = None
         node_url = f'http://{node_ip.replace(":7100", "")}'
 
-        self.logging.log_print(f'++ get_node_multi| Check URL = {node_url} , get_type = {get_type}',
+        self.logging.log_print(f'++ get_node_multi | Check URL = {node_url} , get_type = {get_type}',
                                color='magenta', is_print=self.showlog)
 
         if get_type == 'chain':
@@ -349,9 +353,11 @@ def todaydate(date_type=None):
     elif date_type == "ifdb_time":
         return '%s' % datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
 
+
 def disable_ssl_warnings():
     import urllib3
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
 
 def get_public_ipaddr(output=False):
     try:
@@ -362,11 +368,13 @@ def get_public_ipaddr(output=False):
     except:
         return None
 
+
 def base_path():
     frame = inspect.stack()[1]
     module = inspect.getmodule(frame[0])
     filename = module.__file__
     return os.path.dirname(filename)
+
 
 def check_dir(dir_path, create_if_missing=False):
     if os.path.isdir(dir_path):
@@ -379,7 +387,8 @@ def check_dir(dir_path, create_if_missing=False):
             cprint(f'Directory "{dir_path}" does not found', 'red')
             return False
 
-def chech_file(filename, path=None):
+
+def check_file(filename, path=None):
     orig_path = os.getcwd()
     if path:
         if check_dir(path):
@@ -396,6 +405,7 @@ def chech_file(filename, path=None):
         cprint(f'Check file : file "{filename}" does Not Found is file', 'red')
         return False
 
+
 def single_list_check(data):
     import numpy as np
     arr = np.array(data)
@@ -404,9 +414,10 @@ def single_list_check(data):
     else:
         return False
 
+
 def pretty_table(filed_name, data, filter_head, align="l", showlog=False):
     # https://pypi.org/project/prettytable/
-    #prettytable = PrettyTable(padding_width=1, header_style="title")
+    # prettytable = PrettyTable(padding_width=1, header_style="title")
     prettytable = PrettyTable(padding_width=1)
     is_not_field = False
 
@@ -440,7 +451,7 @@ def pretty_table(filed_name, data, filter_head, align="l", showlog=False):
         # 입력 받은  args.filter의 구분자","로 들어 올 경우에 대한 처리 루틴
         temp_filter = []
         for temp_item in filter_head:
-            for temp_i in temp_item.replace(" ",",").split(','):
+            for temp_i in temp_item.replace(" ", ",").split(','):
                 Logging().log_print(f'temp_i :{temp_i}', 'green', is_print=showlog)
                 if len(temp_i) > 0:
                     temp_filter.append(temp_i.strip())
@@ -466,6 +477,7 @@ def pretty_table(filed_name, data, filter_head, align="l", showlog=False):
     else:
         return prettytable
 
+
 class Color:
     # TextColor : Text Color
     grey = 'grey'
@@ -476,6 +488,7 @@ class Color:
     magenta = 'magenta'
     cyan = 'cyan'
     white = 'white'
+
 
 class BgColor:
     """
@@ -489,6 +502,7 @@ class BgColor:
     magenta = 'on_magenta'
     cyan = 'on_cyan'
     white = 'on_white'
+
 
 class Logging:
     def __init__(self, log_path=None,
