@@ -253,14 +253,18 @@ class IconNodeGetInfo:
         if node_info.get('role') == 0:
             seeds_ips = list(res_json_data.get('module').get('network').get('p2p').get('seeds').keys())
             for seed_ip in seeds_ips:
-                node_url = f'http://{seed_ip.replace(":7100", "")}'
+                # node_url = f'http://{seed_ip.replace(":7100", "")}'
+                url_hostname = urlparse(f"http://{seed_ip}").hostname
+                node_url = f'http://{url_hostname}'
                 res_json, field_name, node_info = self.get_node(url=node_url, get_inspect=True)
                 if node_info.get('role') == 1 or node_info.get('role') == 3:
                     res_json_data = res_json
                     break
         roots_ips = list(res_json_data.get('module').get('network').get('p2p').get('roots').keys())
         seeds_ips = list(res_json_data.get('module').get('network').get('p2p').get('seeds').keys())
-        nodes_ip = set(roots_ips + seeds_ips + [f'{urlparse(self.url).hostname}:7100'])
+        seed_port = urlparse(f'http://{seeds_ips[0]}').port
+        # nodes_ip = set(roots_ips + seeds_ips + [f'{urlparse(self.url).hostname}:7100'])
+        nodes_ip = set(roots_ips + seeds_ips + [f'{urlparse(self.url).hostname}:{seed_port}'])
 
         self.logging.log_print(f'++ roots_ips : {roots_ips}', 'magenta', is_print=self.showlog)
         self.logging.log_print(f'++ seeds_ips : {seeds_ips}', 'magenta', is_print=self.showlog)
@@ -273,7 +277,9 @@ class IconNodeGetInfo:
     def get_node_multi(self, node_ip, field_name, get_type, no_trunc=False):
         get_info = []
         node_info = None
-        node_url = f'http://{node_ip.replace(":7100", "")}'
+        url_hostname = urlparse(f"http://{node_ip}").hostname
+        # node_url = f'http://{node_ip.replace(":7100", "")}'
+        node_url = f'http://{url_hostname}'
 
         self.logging.log_print(f'++ get_node_multi | Check URL = {node_url} , get_type = {get_type}',
                                color='magenta', is_print=self.showlog)
@@ -292,8 +298,10 @@ class IconNodeGetInfo:
             res_json, field_name, node_info = self.get_node(url=node_url, get_all=True, no_trunc=no_trunc)
 
         for field in field_name:
-            if field == "ip_addr" and urlparse(self.url).hostname == node_ip.replace(":7100", ""):
-                get_info.append(f'{node_ip.replace(":7100", "")}(local)')
+            # if field == "ip_addr" and urlparse(self.url).hostname == node_ip.replace(":7100", ""):
+            if field == "ip_addr" and urlparse(self.url).hostname == url_hostname:
+                # get_info.append(f'{node_ip.replace(":7100", "")}(local)')
+                get_info.append(f'{url_hostname}(local)')
             else:
                 get_info.append(node_info.get(field))
 
