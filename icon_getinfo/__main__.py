@@ -249,6 +249,7 @@ class IconNodeGetInfo:
         return node_res_json, field_name, node_info
 
     def get_all_node_ip(self,):
+        seed_port = None
         res_json_data, field_name, node_info = self.get_node(get_inspect=True)
         if node_info.get('role') == 0:
             seeds_ips = list(res_json_data.get('module').get('network').get('p2p').get('seeds').keys())
@@ -262,7 +263,17 @@ class IconNodeGetInfo:
                     break
         roots_ips = list(res_json_data.get('module').get('network').get('p2p').get('roots').keys())
         seeds_ips = list(res_json_data.get('module').get('network').get('p2p').get('seeds').keys())
-        seed_port = urlparse(f'http://{seeds_ips[0]}').port
+        for seed in seeds_ips:
+            hostname = seed.split(":")[0]
+            seed_port = seed.split(":")[-1]
+            self.logging.log_print(f'++ check seed : {seed} / {urlparse(self.url).hostname}', 'yellow', is_print=self.showlog)
+            if f'{urlparse(self.url).hostname}' == hostname:
+                self.logging.log_print(f'++ Matching localhost ip : {hostname}', 'magenta', is_print=self.showlog)
+                break
+
+        if not seed_port:
+            seed_port = urlparse(f'http://{seeds_ips[0]}').port
+            self.logging.log_print(f'++ seed_port is Null and Set to {seed_port}', 'magenta', is_print=self.showlog)
         # nodes_ip = set(roots_ips + seeds_ips + [f'{urlparse(self.url).hostname}:7100'])
         nodes_ip = set(roots_ips + seeds_ips + [f'{urlparse(self.url).hostname}:{seed_port}'])
 
