@@ -73,6 +73,11 @@ class IconNodeGetInfo:
 
         self.logging.log_print(f'++ URL : {self.url}', 'green', is_print=self.showlog)
 
+        stat, result = self.get_requests(self.url)
+        if stat == 599:
+            cprint(f'Error ] Not Connecting URL : {self.url}', 'red')
+            sys.exit(1)
+
     def get_requests(self, url, conn_timeout=5):
         if "http://" not in url:
             url = f'http://{url}'
